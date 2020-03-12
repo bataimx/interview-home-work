@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
-export default function BlogSearchForm({...props}) {
-  const {children} = props;
+export default function BlogSearchForm() {
   const [formAction, setFormAction] = useState(false);
   const searchEl = useRef(null);
   const handleSubmit = event => {

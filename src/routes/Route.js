@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { getSignInAccount } from '../actions';
 
 import DefaultLayout from "../pages/_layouts/default";
 import AuthLayout from "../pages/_layouts/auth";
@@ -10,10 +12,10 @@ export default function RouteWrapper({
   isPrivate,
   ...rest
 }) {
-  const signed = true;
+  const signed = useSelector(getSignInAccount);
 
   useEffect(() => {
-    document.title = `${rest.title || 'Title'} - KPI Management`;
+    document.title = `${rest.title || 'Title'}`;
   })
 
   /**
@@ -21,7 +23,7 @@ export default function RouteWrapper({
    * without authentication.
    */
   if (isPrivate && !signed) {
-    return <Redirect to="/" />;
+    return <Redirect to="/signin" />;
   }
 
   /**
@@ -29,7 +31,7 @@ export default function RouteWrapper({
    * (SignIn or SignUp) after being authenticated.
    */
   if (!isPrivate && signed) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/" />;
   }
 
   const Layout = signed ? AuthLayout : DefaultLayout;
@@ -51,7 +53,7 @@ export default function RouteWrapper({
 
 RouteWrapper.propTypes = {
   isPrivate: PropTypes.bool,
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func, PropTypes.object]).isRequired
 };
 
 RouteWrapper.defaultProps = {

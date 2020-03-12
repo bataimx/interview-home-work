@@ -1,28 +1,34 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getPosts } from '../actions';
-import BlogItem from '../features/BlogItem';
 import { Row, Col } from 'react-bootstrap';
+import BlogList from '../features/BlogList';
 
 export default function BlogSearchResult() {
   const posts = useSelector(getPosts);
   const query = getURLParams(window.location);
-  var testReg = new RegExp(`(${query.query.trim().replace(/\s/g, '|')})`, 'ig');
-  const result = Object.keys(posts).map(key => posts[key]).filter(item => {
-    return item.title.match(testReg) || item.content.match(testReg) || item.tags.join(' ').match(testReg);
+  const testReg = new RegExp(`(${query.query.trim().replace(/\s/g, '|')})`, 'ig');
+  let results = {};
+  Object.keys(posts).map(key => {
+    const item = posts[key];
+    if(
+      item.title.match(testReg) ||
+      item.content.match(testReg) ||
+      item.tags.join(' ').match(testReg)
+    ) {
+      results[item.id] = {...item};
+    }
+    return item;
   });
+  const numberResultsFound = Object.keys(results).length;
 
   return (
     <Row className="justify-content-center">
       <Col xs='8'>
-        <p>{`Search keyword: ${query.query}`}</p>
+        <p>{`Search keyword: ${query.query}(${numberResultsFound})`}</p>
         {
-          result.length > 0 ? (
-            result.map((item, idx) => {
-              return (
-                <BlogItem key={idx} {...item} />
-              );
-            })
+          numberResultsFound > 0 ? (
+            <BlogList posts={results} />
           ) : (
             <p className='text-muted'>No Result Found</p>
           )

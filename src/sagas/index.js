@@ -15,29 +15,40 @@ export function fetchApi(name) {
   }
 }
 
-export function* fetchPosts(reddit) {
-  const resp = yield call(fetchApi, reddit);
-  console.log('data', resp);
-}
-
-export function* delayIncrement(reddit) {
-  yield delay(1000);
-  yield put({
-    type: 'INCREMENT_BY_AMOUNT',
-    reddit
-  });
-}
-
-export function* incrementAsync() {
+export function* verifyAccount() {
   while(true) {
-    const { reddit } = yield take('INCREMENT_ASYNC');
-    yield call(delayIncrement, reddit);
-    yield call(fetchPosts, 'posts');
+    const { account } = yield take('VERIFY_ACCOUNT');
+    const users = yield call(fetchApi, 'users');
+    yield put({
+      type: 'QUERY_ACCOUNT',
+      state: true
+    });
+    yield delay(1000);
+    const filterResults = users.filter(item => item.password === account.pwd && item.username === account.usn);
+    if(!!filterResults[0]) {
+      yield put({
+        type: 'RECEIVE_ACCOUNT',
+        id: filterResults[0].id
+      });
+      yield put({
+        type: 'ACTION_ACCOUNT',
+        status: 'logged'
+      });
+    } else {
+      yield put({
+        type: 'ACTION_ACCOUNT',
+        status: 'wrong_password'
+      });
+    }
+    yield put({
+      type: 'QUERY_ACCOUNT',
+      state: false
+    });
   }
 }
 
 export function* startup() {
-  yield delay(1000);
+  yield delay(500);
   const posts = yield call(fetchApi, 'posts');
   const users = yield call(fetchApi, 'users');
   const comments = yield call(fetchApi, 'comments');
@@ -53,11 +64,17 @@ export function* startup() {
     type: 'RECEIVE_COMMENTS',
     comments
   });
-  // const selectedReddit = yield select(selectedRedditSelector);
-  // yield fork(fetchPosts, selectedReddit);
+  yield put({
+    type: 'QUERY_ACCOUNT',
+    state: false
+  });
+  yield put({
+    type: 'ACTION_ACCOUNT',
+    status: 'unlogged'
+  });
 }
 
 export default function* root() {
   yield fork(startup);
-  yield fork(incrementAsync);
+  yield fork(verifyAccount);
 }

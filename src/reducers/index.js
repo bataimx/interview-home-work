@@ -1,18 +1,5 @@
 import { combineReducers } from 'redux';
 
-export function counter(state = 0, action) {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'INCREMENT_BY_AMOUNT':
-      return state += action.reddit;
-    case 'DECREMENT':
-      return state - 1;
-    default:
-      return state;
-  }
-}
-
 export function postData(state = {}, action) {
   switch (action.type) {
     case 'CREATE_NEW_POST':
@@ -71,11 +58,46 @@ export function commentData(state = {}, action) {
   }
 }
 
+export function accountData(state = {
+  loggedID: -1,
+  query: false,
+  status: 'unlogged'
+}, action) {
+  switch (action.type) {
+    case 'RECEIVE_ACCOUNT':
+      const logged = {
+        loggedID: typeof action.id === 'number' ? action.id : -1
+      };
+      return {
+        ...state,
+        ...logged
+      };
+    case 'QUERY_ACCOUNT':
+      const query = {
+        query: action.state
+      };
+      return {
+        ...state,
+        ...query
+      };
+    case 'ACTION_ACCOUNT':
+      const status = {
+        status: action.status
+      };
+      return {
+        ...state,
+        ...status
+      };
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
-  counter,
   postData,
   userData,
   commentData,
+  accountData,
 });
 
 export default rootReducer;

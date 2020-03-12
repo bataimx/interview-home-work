@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Row, Col, Image } from 'react-bootstrap';
 import {
   getUsers,
  } from '../actions';
 
-export function BlogReply({...props}) {
+export default function BlogReply({...props}) {
   const {owner, content, created_at} = props;
   const users = useSelector(getUsers);
 
@@ -24,9 +24,3 @@ export function BlogReply({...props}) {
     </Row>
   );
 }
-
-function mapStateToProps(state) {
-  return {}
-}
-
-export default connect(mapStateToProps)(BlogReply);

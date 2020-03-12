@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Row, Col, Button, Image } from 'react-bootstrap';
 import BlogSearchForm from '../features/BlogSearchForm';
+import { logoutAccount } from '../actions';
 
-export default function BlogHeader() {
+export function BlogHeader({...props}) {
+  const { dispatch } = props;
+
   return (
     <>
       <Row className='mb-3'>
@@ -14,25 +18,33 @@ export default function BlogHeader() {
             </Button>
           </LinkContainer>
         </Col>
-        <Col>
-          <LinkContainer to='/counter' >
-            <Button variant='primary' block>Blogs</Button>
-          </LinkContainer>
-        </Col>
         <Col className='text-right'>
-          Username
+          <Button
+            variant='outline-primary'
+            onClick={() => {
+              dispatch(logoutAccount())
+            }}
+          >
+            Logout
+          </Button>
         </Col>
       </Row>
       <Row className='mb-3'>
         <Col xs='6'>
-          <BlogSearchForm />
-        </Col>
-        <Col xs='6' className='text-right'>
           <LinkContainer to='/blog/create' >
             <Button variant='outline-primary' size='sm'>Create Post</Button>
           </LinkContainer>
+        </Col>
+        <Col xs='6' className='text-right'>
+          <BlogSearchForm />
         </Col>
       </Row>
     </>
   );
 }
+
+function mapStateToProps(state) {
+  return {}
+}
+
+export default connect(mapStateToProps)(BlogHeader);
