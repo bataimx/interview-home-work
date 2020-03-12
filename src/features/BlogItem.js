@@ -36,7 +36,7 @@ export default function BlogItem({...props}) {
         {!!blogDetail ? (
           <p>{content}</p>
         ) : (
-          <p>{!!content && content.substr(0, 100)}</p>
+          <p>{!!content && content.substr(0, 100)}{content.length > 100 ? '...' : ''}</p>
         )}
       </Col>
       <Col xs='12'>

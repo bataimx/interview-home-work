@@ -3,10 +3,8 @@ import { Button } from 'react-bootstrap';
 import BlogItem from './BlogItem';
 import PropTypes from 'prop-types';
 
-const NumberItemsOnPage = 4;
-
 export default function BlogList({...props}) {
-  const { posts, styling } = props;
+  const { posts, styling, numberItemsPerLoad } = props;
   const [itemIndex, setItemIndex] = useState(1);
   const [loading, setLoading] = useState(false);
   const postItems = Object.keys(posts).map(key => posts[key]);
@@ -30,13 +28,13 @@ export default function BlogList({...props}) {
         setItemIndex(itemIndex + 1);
         setLoading(false);
       }
-    }, 1000);
+    }, 600);
   };
 
   useEffect(() => {
     isComponentMounted.current = true;
     const $scroll = scrollEl.current;
-    if( (itemIndex * NumberItemsOnPage) <= postItems.length) {
+    if( (itemIndex * numberItemsPerLoad) <= postItems.length) {
       $scroll.addEventListener('scroll', handleScroll, true);
     }
 
@@ -54,7 +52,7 @@ export default function BlogList({...props}) {
         style={styling}
       >
         {
-          postItems.slice(0, itemIndex * NumberItemsOnPage).map((item, idx) => {
+          postItems.slice(0, itemIndex * numberItemsPerLoad).map((item, idx) => {
             return (
               <BlogItem key={idx} {...item} />
             );
@@ -75,12 +73,14 @@ BlogList.defaultProps = {
   styling: {
     overflow: 'auto',
     'overflowX': 'hidden',
-    height: '80vh'
+    height: 'calc(100vh - 180px)',
   },
+  numberItemsPerLoad: 4,
 }
 
 BlogList.propTypes = {
   posts: PropTypes.object,
   styling: PropTypes.object,
+  numberItemsPerLoad: PropTypes.number,
 };
 

@@ -12,7 +12,7 @@ export function BlogCreate({...props}) {
 
   const handleSubmit = event => {
     const $form = event.target;
-    if($form.checkValidity()) {
+    if($form.checkValidity() && titleEl.current.value.trim().length > 0) {
       const submitData = {
         "owner": accountOwner,
         "created_at": new Date().setMilliseconds(0),

@@ -33,7 +33,7 @@ export default function BlogSearchResult() {
               styling={{
                 overflow: 'auto',
                 'overflowX': 'hidden',
-                height: '75vh'
+                height: 'calc(100vh - 220px)'
               }}
             />
           ) : (

@@ -7,7 +7,7 @@ export default function BlogSearchForm() {
   const searchEl = useRef(null);
   const handleSubmit = event => {
     event.preventDefault();
-    if(searchEl.current.value.length > 0) {
+    if(searchEl.current.value.trim().length > 0) {
       setFormAction(true);
     }
   };

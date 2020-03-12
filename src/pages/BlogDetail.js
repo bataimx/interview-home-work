@@ -10,10 +10,10 @@ export default function BlogDetail() {
   const blogData = ( !!posts[id] && posts[id] ) || {};
 
   return (
-    <>
+    <div className='mb-5'>
       {
-        Object.keys(blogData).length > 0 ? (<BlogItem { ...blogData } />) : ''
+        Object.keys(blogData).length > 0 ? (<BlogItem { ...blogData } blogDetail />) : ''
       }
-    </>
+    </div>
   );
 }
