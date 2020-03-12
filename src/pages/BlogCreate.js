@@ -18,7 +18,7 @@ export function BlogCreate({...props}) {
         "created_at": new Date().setMilliseconds(0),
         "title": titleEl.current.value,
         "content": contentEl.current.value,
-        "tags": tagEl.current.value.split(',').map(item => item.trim())
+        "tags": tagEl.current.value.split(',').map(item => item.trim()).filter(item => item.length > 0)
       };
       dispatch(createNewPost(submitData));
       setShowAlert(true);

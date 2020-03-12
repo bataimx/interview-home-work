@@ -1,30 +1,21 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import {
-  getPosts,
-  getUsers,
- } from '../actions';
+import { useSelector } from 'react-redux';
+import { getPosts } from '../actions';
 import BlogItem from './BlogItem';
 
-export function BlogList() {
+export default function BlogList() {
   const posts = useSelector(getPosts);
+  const results = Object.keys(posts).map(key => posts[key]);
 
   return (
     <div>
       {
-        Object.keys(posts).map((key, idx) => {
+        results.map((item, idx) => {
           return (
-            <BlogItem key={idx} {...posts[key]} />
+            <BlogItem key={idx} {...item} />
           );
         })
       }
     </div>
   );
 }
-
-function mapStateToProps(state) {
-  return {}
-}
-
-export default connect(mapStateToProps)(BlogList)
-

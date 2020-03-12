@@ -12,7 +12,7 @@ export function BlogReply({...props}) {
   return (
     <Row>
       <Col xs='1'>
-        <Image src="holder.js/65x65" roundedCircle />
+        <Image src="https://via.placeholder.com/50" roundedCircle />
       </Col>
       <Col xs='11'>
         <p>

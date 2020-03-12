@@ -38,7 +38,6 @@ export function* incrementAsync() {
 
 export function* startup() {
   yield delay(1000);
-  console.log('startup');
   const posts = yield call(fetchApi, 'posts');
   const users = yield call(fetchApi, 'users');
   const comments = yield call(fetchApi, 'comments');

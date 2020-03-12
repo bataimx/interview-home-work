@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   getUsers,
@@ -16,7 +16,9 @@ export default function BlogItem({...props}) {
     <Row >
       <Col xs='12' className='text-center'>
         <LinkContainer to={`/blog/${id}`}>
-          <h3>{title}</h3>
+          <Button variant='link' className='text-dark' >
+            <h3>{title}</h3>
+          </Button>
         </LinkContainer>
       </Col>
       <Col xs='8'>
@@ -24,7 +26,7 @@ export default function BlogItem({...props}) {
         <p>Created at: {new Date(created_at).toDateString()}</p>
       </Col>
       <Col className='text-right' xs='4'>
-        {tags.map((item, idx) => {
+        {!!tags && tags.map((item, idx) => {
           return (
             <BlogTag key={idx}>{item}</BlogTag>
           );
@@ -33,8 +35,8 @@ export default function BlogItem({...props}) {
       <Col xs='12'>
         {!!blogDetail ? (
           <p>{content}</p>
-          ) : (
-            <p>{content.substr(0, 100)}</p>
+        ) : (
+          <p>{!!content && content.substr(0, 100)}</p>
         )}
       </Col>
       <Col xs='12'>
