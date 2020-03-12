@@ -6,11 +6,11 @@ import BlogSearchForm from '../features/BlogSearchForm';
 import { logoutAccount } from '../actions';
 
 export function BlogHeader({...props}) {
-  const { dispatch } = props;
+  const { dispatch, userName } = props;
 
   return (
     <>
-      <Row className='mb-3'>
+      <Row className='mb-3 mt-3'>
         <Col>
           <LinkContainer to='/' >
             <Button variant='link' className='p-0 border-0'>
@@ -19,8 +19,10 @@ export function BlogHeader({...props}) {
           </LinkContainer>
         </Col>
         <Col className='text-right'>
+          <span className='mr-2'>{userName}</span>
           <Button
             variant='outline-primary'
+            size='sm'
             onClick={() => {
               dispatch(logoutAccount())
             }}
@@ -44,7 +46,10 @@ export function BlogHeader({...props}) {
 }
 
 function mapStateToProps(state) {
-  return {}
+  const userName = !!state.userData[state.accountData.loggedID] && state.userData[state.accountData.loggedID].name;
+  return {
+    userName
+  }
 }
 
 export default connect(mapStateToProps)(BlogHeader);

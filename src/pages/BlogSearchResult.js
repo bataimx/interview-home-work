@@ -28,7 +28,14 @@ export default function BlogSearchResult() {
         <p>{`Search keyword: ${query.query}(${numberResultsFound})`}</p>
         {
           numberResultsFound > 0 ? (
-            <BlogList posts={results} />
+            <BlogList
+              posts={results}
+              styling={{
+                overflow: 'auto',
+                'overflowX': 'hidden',
+                height: '75vh'
+              }}
+            />
           ) : (
             <p className='text-muted'>No Result Found</p>
           )

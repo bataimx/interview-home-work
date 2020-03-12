@@ -11,6 +11,7 @@ export default function BlogList({...props}) {
   const [loading, setLoading] = useState(false);
   const postItems = Object.keys(posts).map(key => posts[key]);
   const scrollEl = useRef(null);
+  const isComponentMounted = useRef(false);
 
   const handleScroll = (event) => {
     const $scroll = event.target;
@@ -25,18 +26,22 @@ export default function BlogList({...props}) {
   const loadMore = () => {
     setLoading(true);
     setTimeout(() => {
-      setItemIndex(itemIndex + 1);
-      setLoading(false);
+      if(isComponentMounted.current) {
+        setItemIndex(itemIndex + 1);
+        setLoading(false);
+      }
     }, 1000);
   };
 
   useEffect(() => {
+    isComponentMounted.current = true;
     const $scroll = scrollEl.current;
     if( (itemIndex * NumberItemsOnPage) <= postItems.length) {
       $scroll.addEventListener('scroll', handleScroll, true);
     }
 
     return(() => {
+      isComponentMounted.current = false;
       $scroll.removeEventListener("scroll", handleScroll, true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
