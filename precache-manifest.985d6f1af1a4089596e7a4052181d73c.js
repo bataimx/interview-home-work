@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a3624175f2955878b587c05a336cc36b",
+    "revision": "aaf78d650f8d63308c5f835aa7832a47",
     "url": "/interview-home-work/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/interview-home-work/static/css/2.de424728.chunk.css"
   },
   {
-    "revision": "c2de76fefa181816c40a",
+    "revision": "335b4f7cbe2d6774fd7f",
     "url": "/interview-home-work/static/css/main.69eda509.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/interview-home-work/static/js/2.41b44ee6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c2de76fefa181816c40a",
-    "url": "/interview-home-work/static/js/main.3cf0527e.chunk.js"
+    "revision": "335b4f7cbe2d6774fd7f",
+    "url": "/interview-home-work/static/js/main.925b6060.chunk.js"
   },
   {
     "revision": "45711ec77b0d178efd6d",
