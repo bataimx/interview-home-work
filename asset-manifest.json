@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/interview-home-work/static/css/main.69eda509.chunk.css",
-    "main.js": "/interview-home-work/static/js/main.925b6060.chunk.js",
-    "main.js.map": "/interview-home-work/static/js/main.925b6060.chunk.js.map",
+    "main.js": "/interview-home-work/static/js/main.5672c47a.chunk.js",
+    "main.js.map": "/interview-home-work/static/js/main.5672c47a.chunk.js.map",
     "runtime-main.js": "/interview-home-work/static/js/runtime-main.b4d21854.js",
     "runtime-main.js.map": "/interview-home-work/static/js/runtime-main.b4d21854.js.map",
     "static/css/2.de424728.chunk.css": "/interview-home-work/static/css/2.de424728.chunk.css",
     "static/js/2.41b44ee6.chunk.js": "/interview-home-work/static/js/2.41b44ee6.chunk.js",
     "static/js/2.41b44ee6.chunk.js.map": "/interview-home-work/static/js/2.41b44ee6.chunk.js.map",
     "index.html": "/interview-home-work/index.html",
-    "precache-manifest.985d6f1af1a4089596e7a4052181d73c.js": "/interview-home-work/precache-manifest.985d6f1af1a4089596e7a4052181d73c.js",
+    "precache-manifest.6ac0fbfcd38677aff56723a62bb9ca8f.js": "/interview-home-work/precache-manifest.6ac0fbfcd38677aff56723a62bb9ca8f.js",
     "service-worker.js": "/interview-home-work/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/interview-home-work/static/css/2.de424728.chunk.css.map",
     "static/css/main.69eda509.chunk.css.map": "/interview-home-work/static/css/main.69eda509.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.de424728.chunk.css",
     "static/js/2.41b44ee6.chunk.js",
     "static/css/main.69eda509.chunk.css",
-    "static/js/main.925b6060.chunk.js"
+    "static/js/main.5672c47a.chunk.js"
   ]
 }
