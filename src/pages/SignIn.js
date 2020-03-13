@@ -1,13 +1,22 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { connect, useSelector } from 'react-redux';
 import { Alert, Row, Col, Form, Button } from 'react-bootstrap';
-import { verifyAccount, queryAccount } from '../actions';
+import {
+  verifyAccount,
+  queryAccount,
+  hideMessage,
+} from '../actions';
 
 export function SignIn({...props}) {
-  const { dispatch, wrongPassword } = props;
+  const { dispatch, haveMessage, textMessage } = props;
   const loading = useSelector(queryAccount);
   const userNameEl = useRef(null),
   passWordEl = useRef(null);
+
+  useEffect(() => {
+    dispatch(hideMessage());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -26,9 +35,13 @@ export function SignIn({...props}) {
     <Row className="justify-content-center mt-5">
       <Col xs='8'>
         <h3>Sign In</h3>
-        {wrongPassword ? (
-          <Alert variant='warning' className='mt-2' >
-            Wrong User Name or Password!
+        {haveMessage ? (
+          <Alert
+            variant='warning'
+            className='mt-2'
+            onClose={() => dispatch(hideMessage())} dismissible
+          >
+            {textMessage}
           </Alert>
         ) : ''}
         <Form onSubmit={handleSubmit}>
@@ -57,9 +70,9 @@ export function SignIn({...props}) {
 }
 
 function mapStateToProps(state) {
-  const wrongPassword = state.accountData.status === "wrong_password";
   return {
-    wrongPassword
+    haveMessage: state.messagesData.show,
+    textMessage: state.messagesData.message,
   }
 }
 

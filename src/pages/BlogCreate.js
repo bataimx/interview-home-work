@@ -1,14 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import { createNewPost } from '../actions';
+import {
+  createNewPost,
+  hideMessage
+} from '../actions';
 
 export function BlogCreate({...props}) {
-  const { dispatch, accountOwner } = props;
-  const [showAlert, setShowAlert] = useState(false);
+  const {
+    dispatch,
+    accountOwner,
+    showLoading,
+    haveMessage,
+    textMessage
+  } = props;
   const titleEl = useRef(null),
   tagEl = useRef(null),
   contentEl = useRef(null);
+
+  useEffect(() => {
+    dispatch(hideMessage());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = event => {
     const $form = event.target;
@@ -21,8 +34,6 @@ export function BlogCreate({...props}) {
         "tags": tagEl.current.value.split(',').map(item => item.trim()).filter(item => item.length > 0)
       };
       dispatch(createNewPost(submitData));
-      setShowAlert(true);
-      $form.reset();
     }
     event.preventDefault();
   };
@@ -30,9 +41,9 @@ export function BlogCreate({...props}) {
   return (
     <Row className="justify-content-center">
       <Col xs='8'>
-        { showAlert ? (
-          <Alert variant='success' className='mt-2' onClose={() => setShowAlert(false)} dismissible>
-            Create new post success!
+        { (haveMessage) ? (
+          <Alert variant='success' className='mt-2' onClose={() => dispatch(hideMessage())} dismissible>
+            {textMessage}
           </Alert>
         ) : '' }
         <Form onSubmit={handleSubmit}>
@@ -55,7 +66,7 @@ export function BlogCreate({...props}) {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            { showLoading ? 'Loading' : 'Submit' }
           </Button>
         </Form>
       </Col>
@@ -64,9 +75,11 @@ export function BlogCreate({...props}) {
 }
 
 function mapStateToProps(state) {
-  const accountOwner = state.accountData.loggedID;
   return {
-    accountOwner
+    haveMessage: state.messagesData.show,
+    textMessage: state.messagesData.message,
+    accountOwner: state.accountData.loggedID,
+    showLoading: state.postData.query,
   }
 }
 

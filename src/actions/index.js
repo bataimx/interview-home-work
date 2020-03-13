@@ -3,7 +3,7 @@ export function selectCount(reddit) {
 }
 
 export function getPosts(state) {
-  return state.postData;
+  return state.postData.items;
 }
 
 export function getUsers(state) {
@@ -38,7 +38,20 @@ export function queryAccount(state) {
 
 export function createNewPost(post) {
   return {
-    type: 'CREATE_NEW_POST',
+    type: 'QUERY_NEW_POST',
     post
+  };
+}
+
+export function showMessage(message) {
+  return {
+    type: 'RECEIVE_MESSAGE',
+    message
+  };
+}
+
+export function hideMessage() {
+  return {
+    type: 'HIDE_MESSAGE',
   };
 }
