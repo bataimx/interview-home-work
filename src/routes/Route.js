@@ -23,7 +23,7 @@ export default function RouteWrapper({
    * without authentication.
    */
   if (isPrivate && !signed) {
-    return <Redirect to="/signin" />;
+    return <Redirect to="/" />;
   }
 
   /**
@@ -31,7 +31,7 @@ export default function RouteWrapper({
    * (SignIn or SignUp) after being authenticated.
    */
   if (!isPrivate && signed) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
   }
 
   const Layout = signed ? AuthLayout : DefaultLayout;
